@@ -2,6 +2,7 @@
   "name": "react-slideshow",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://hinaser.github.io/react-slideshow/web",
   "dependencies": {
     "@tweenjs/tween.js": "^17.2.0",
     "prop-types": "^15.6.2",
