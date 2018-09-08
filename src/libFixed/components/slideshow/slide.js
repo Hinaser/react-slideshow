@@ -210,27 +210,28 @@ var Slideshow = function (_Component) {
       var _props2 = this.props,
           children = _props2.children,
           transitionDuration = _props2.transitionDuration;
-      
+
       var existingTweens = TWEEN.default.getAll();
       if (!existingTweens.length) {
-        var _animate = function _animate() {
-          if(_this4.willUnmount){
-            TWEEN.default.removeAll();
-            return;
-          }
-          requestAnimationFrame(_animate);
-          TWEEN.default.update();
-        };
-
         clearTimeout(this.timeout);
         var value = { margin: -this.width * (this.state.index + 1) };
         var tween = new TWEEN.Tween(value).to({ margin: -this.width * (index + 1) }, transitionDuration).onUpdate(function (value) {
           _this4.imageContainer.style.transform = 'translate(' + value.margin + 'px)';
         }).start();
-        _animate();
+
+        var animate = function animate() {
+          if (_this4.willUnmount) {
+            TWEEN.default.removeAll();
+            return;
+          }
+          requestAnimationFrame(animate);
+          TWEEN.default.update();
+        };
+
+        animate();
 
         setTimeout(function () {
-          if(_this4.willUnmount){
+          if (_this4.willUnmount) {
             return;
           }
           _this4.setState({

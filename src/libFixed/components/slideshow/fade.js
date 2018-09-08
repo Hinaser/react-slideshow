@@ -197,27 +197,28 @@ var Fade = function (_Component) {
       var _state2 = this.state,
           children = _state2.children,
           index = _state2.index;
-      
-      var willUnmount = this.willUnmount;
 
       clearTimeout(this.timeout);
       var value = { opacity: 0 };
-      animate();
-      function animate() {
-        if(_this5.willUnmount){
+
+      var animate = function animate() {
+        if (_this5.willUnmount) {
           TWEEN.default.removeAll();
           return;
         }
         requestAnimationFrame(animate);
         TWEEN.default.update();
-      }
+      };
+
+      animate();
+
       var tween = new TWEEN.Tween(value).to({ opacity: 1 }, this.props.transitionDuration).onUpdate(function (value) {
         _this5.divsContainer.children[newIndex].style.opacity = value.opacity;
         _this5.divsContainer.children[index].style.opacity = 1 - value.opacity;
       }).start();
 
       tween.onComplete(function () {
-        if(_this5.willUnmount){
+        if (_this5.willUnmount) {
           return;
         }
         _this5.setState({
